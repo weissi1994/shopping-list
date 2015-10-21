@@ -1,0 +1,28 @@
+{
+  "name": "shopping-list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "api.js",
+  "scripts": {
+    "web": "node_modules/.bin/gulp web",
+    "build": "node_modules/.bin/gulp build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krilleha/shopping-list.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/krilleha/shopping-list/issues"
+  },
+  "homepage": "https://github.com/krilleha/shopping-list#readme",
+  "dependencies": {
+    "express": "^4.13.3",
+    "gulp": "^3.9.0",
+    "gulp-typescript": "^2.9.2",
+    "mithril": "^0.2.0",
+    "require-dir": "^0.3.0",
+    "tsd": "^0.6.5"
+  }
+}
