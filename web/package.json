@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/krilleha/shopping-list#readme",
   "dependencies": {
+    "bootstrap": "^3.3.5",
     "express": "^4.13.3",
     "gulp": "^3.9.0",
     "gulp-babel": "^5.3.0",

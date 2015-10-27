@@ -11,7 +11,20 @@ var dependenciesToCopyToDeploymentPath = [
     settings.source.path + "index.html",
 ];
 
-gulp.task("dependencies", function () {
+gulp.task("bootstrap-fonts", function () {
+	return gulp.src([
+            "node_modules/bootstrap/dist/css/bootstrap.min.css",
+            "node_modules/bootstrap/dist/css/bootstrap-theme.min.css",
+        ])
+		.pipe(gulp.dest(settings.output.path + "css"));
+});
+
+gulp.task("bootstrap-css", function () {
+	return gulp.src("node_modules/bootstrap/dist/fonts/*.*")
+		.pipe(gulp.dest(settings.output.path + "fonts"));
+});
+
+gulp.task("dependencies", ["bootstrap-css", "bootstrap-fonts"], function () {
 	return gulp.src(dependenciesToCopyToDeploymentPath)
 		.pipe(gulp.dest(settings.output.path));
 });
@@ -26,7 +39,7 @@ gulp.task("styles", function () {
 	return gulp.src(settings.source.path + "styles/init.styl")
         .pipe(stylus())
         .pipe(rename("styles.css"))
-		.pipe(gulp.dest(settings.output.path));
+		.pipe(gulp.dest(settings.output.path + "css"));
 });
 
 gulp.task("modules", ["es6"], function() {
@@ -43,6 +56,6 @@ gulp.task("build", ["dependencies", "styles", "modules"]);
 
 gulp.task("build-watch", ["build"], function() {
     gulp.watch(dependenciesToCopyToDeploymentPath, ["dependencies"]);
-    gulp.watch(settings.source.path + "**/*.styl", ["styles"]);
-    gulp.watch(settings.source.path + "**/*.js", ["modules"]);
+    gulp.watch(settings.source.path + "styles/**/*.styl", ["styles"]);
+    gulp.watch(settings.source.path + "modules/**/*.js", ["modules"]);
 });
