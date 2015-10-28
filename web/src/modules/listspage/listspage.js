@@ -3,11 +3,20 @@ import LayoutController from "../layout/layout.js";
 class Controller extends LayoutController {
     constructor() {
         super();
-        this.isLoading = m.prop(true);
+        this.isLoading = m.prop(false);
+        this.lists = m.prop([]);
 
-        this.lists = m.prop([
-            { id: "testid", name: "test", date: "2007-01-01" },
-        ]);
+        this.loadLists();
+    }
+
+    loadLists() {
+        var url = "http://localhost:3001/api/lists";
+        m.request({method: "GET", url: url}).then(function(result) {
+            if (result) {
+                this.lists(result);
+            }
+            this.isLoading(false);
+        }.bind(this));
     }
 
     getView() {
@@ -17,21 +26,28 @@ class Controller extends LayoutController {
                     m("span.glyphicon.glyphicon-list-alt"),
                     "Shopping lists",
                 ]),
-                m("hr"),
-                m("table.table", [
-                    m("thead", [
-                        m("tr", [
-                            m("td", "Name"),
-                            m("td", "Date"),
+                // m("hr"),
+                this.isLoading()
+                    ? m("div.text-center", m("div.spinner-loader"))
+                    : !this.lists()
+                        ? m("div.alert.alert-info", { role: "alert" }, [
+                            m("span.glyphicon.glyphicon-fire"),
+                            "Error loading lists, please try again later."
                         ])
-                    ]),
-                    m("tbody", this.lists().map(function(list) {
-                        return m("tr", [
-                            m("td", m("a", { href: "#/list/" + list.id }, list.name)),
-                            m("td", list.date),
-                        ])
-                    })),
-                ]),
+                        : m("table.table", [
+                            m("thead", [
+                                m("tr", [
+                                    m("td", "Name"),
+                                    m("td", "Date"),
+                                ])
+                            ]),
+                            m("tbody", this.lists().map(function(list) {
+                                return m("tr", [
+                                    m("td", m("a.btn-s.btn-link", { href: "#/list/" + list.id }, list.name)),
+                                    m("td", list.date),
+                                ])
+                            })),
+                        ]),
             ])
         );
     }
