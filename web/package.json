@@ -2,7 +2,7 @@
   "name": "shopping-list",
   "version": "1.0.0",
   "description": "",
-  "main": "api.js",
+  "main": "index.js",
   "scripts": {
     "web": "node_modules/.bin/gulp web",
     "build": "node_modules/.bin/gulp build"
