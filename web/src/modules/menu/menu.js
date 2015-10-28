@@ -7,8 +7,11 @@ class Controller {
         var route = m.route();
         return m("div", [
             m("h1.logo", [
-                m("span.glyphicon.glyphicon-list-alt"),
-                this.logoText()
+                m("span.glyphicon.glyphicon-leaf")
+            ]),
+            m("div.input-group.search", [
+                m("input.form-control", { placeholder: "Search" }),
+                m("span.input-group-btn", m("button.btn", m("span.glyphicon.glyphicon-search"))),
             ]),
             m("ul.nav.nav-pills.nav-stacked", [
                 m("li" + (route == "/new" ? ".active" : ""), { role: "presentation" }, m("a", { href: "#/new" }, "New")),

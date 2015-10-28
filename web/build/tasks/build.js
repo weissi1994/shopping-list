@@ -32,7 +32,7 @@ gulp.task("dependencies", ["bootstrap-css", "bootstrap-fonts"], function () {
 gulp.task("es6", function () {
 	return gulp.src(settings.source.path + "modules/**/*.js")
 		.pipe(babel())
-		.pipe(gulp.dest(settings.output.path + "modules"));
+		.pipe(gulp.dest(settings.output.binpath + "modules"));
 });
 
 gulp.task("styles", function () {
@@ -43,7 +43,7 @@ gulp.task("styles", function () {
 });
 
 gulp.task("modules", ["es6"], function() {
-    return gulp.src(settings.output.path + "modules/router/router.js")
+    return gulp.src(settings.output.binpath + "modules/router/router.js")
         .pipe(webpack({
             output: {
                 filename: settings.output.filename,
