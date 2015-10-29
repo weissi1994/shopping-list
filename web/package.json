@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "web": "node_modules/.bin/gulp web",
     "build": "node_modules/.bin/gulp build"
   },

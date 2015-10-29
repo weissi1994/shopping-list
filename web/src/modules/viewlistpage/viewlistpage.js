@@ -7,7 +7,6 @@ class Controller extends LayoutController {
         this.isLoading = m.prop(true);
 
         this.loadList(m.route.param("id"));
-
     }
 
     loadList(id) {
