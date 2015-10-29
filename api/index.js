@@ -1,26 +1,34 @@
 var express = require("express");
 var cors = require("cors");
+var guid = require("guid");
+var mongo = require("./mongodb");
 
 var app = express();
 app.use(cors());
 
+var url = 'mongodb://192.168.122.231:27017';
+
+app.post("/api/list/new", function(request, response) {
+    var list = {
+        "id": guid.raw(),
+        "name": request.params.name,
+        "date": request.params.date,
+        "items": request.params.items
+    };
+    mongo.insert(list, "lists", function(result) {
+        response.json(list);
+    });
+});
+
 app.get("/api/lists", function(request, response) {
-    response.setHeader('Content-Type', 'application/json');
-    response.json([{
-        "id": "testid2",
-        "name": "test2",
-        "date": "2008-01-01",
-        "items": "test"
-    }]);
+    mongo.findAll("lists", function(results) {
+        response.json(results);
+    });
 });
 
 app.get("/api/list/:id", function(request, response) {
-    response.setHeader('Content-Type', 'application/json');
-    response.json({
-        "id": "testid2",
-        "name": "test2",
-        "date": "2008-01-01",
-        "items": "test"
+    mongo.find({ "id": request.params.id }, "lists", function(results) {
+        response.json(results);
     });
 });
 
