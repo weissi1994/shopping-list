@@ -20,7 +20,6 @@ class Controller extends LayoutController {
     }
 
     delete() {
-        console.log(this.list());
         var url = "http://localhost:3001/api/list/";
         m.request({
             method: "DELETE",
@@ -53,7 +52,7 @@ class Controller extends LayoutController {
                         ]),
                         m("hr"),
                         m("p.text-muted", this.list().date),
-                        m("p", this.list().items)
+                        m("p.linebreak", this.list().items)
                     ])
         );
     }

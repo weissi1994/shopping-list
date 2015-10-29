@@ -9,8 +9,6 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-var url = 'mongodb://192.168.122.231:27017';
-
 app.post("/api/list/new", function(request, response) {
     var list = {
         "id": guid.raw(),
@@ -35,10 +33,9 @@ app.get("/api/list/:id", function(request, response) {
     });
 });
 
-app.delete("/api/list/delete", function(request, response) {
-    console.log(request.body);
+app.delete("/api/list", function(request, response) {
     mongo.delete({ "id": request.body.id }, "lists", function(results) {
-        response.send(200);
+        response.send({message: "deleted"});
     });
 });
 
