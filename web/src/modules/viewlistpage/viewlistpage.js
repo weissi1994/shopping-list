@@ -19,6 +19,20 @@ class Controller extends LayoutController {
         }.bind(this));
     }
 
+    delete() {
+        console.log(this.list());
+        var url = "http://localhost:3001/api/list/";
+        m.request({
+            method: "DELETE",
+            url: url,
+            data: {
+                id: this.list().id
+            }
+        }).then(function(result) {
+            m.route("/lists");
+        }.bind(this));
+    }
+
     getView() {
         return super.getView(
             this.isLoading()
@@ -32,7 +46,7 @@ class Controller extends LayoutController {
                         m("h1", [
                             m("span.glyphicon.glyphicon-folder-open"),
                             this.list().name,
-                            m("a.btn.btn-link.pull-right", [
+                            m("a.btn.btn-link.pull-right", { onclick: this.delete.bind(this) }, [
                                 m("span.glyphicon.glyphicon-remove"),
                                 "delete",
                             ]),

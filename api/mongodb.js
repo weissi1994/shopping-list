@@ -12,13 +12,13 @@ var db = {
             });
         });
     },
-    find: function (search, collection, callback) {
+    find: function (query, collection, callback) {
         mongo.connect(this.url, function(err, db) {
             if (err) throw err;
             var results = [];
             var searcher = db
                 .collection(collection)
-                .find(search)
+                .find(query)
                 .each(function (err2, result) {
                     if (err2) throw err2;
                     if (result != null) {
@@ -48,6 +48,16 @@ var db = {
                         db.close();
                     }
                 });
+        });
+    },
+    delete: function (query , collection, callback) {
+        mongo.connect(this.url, function(err, db) {
+            if (err) throw err;
+            db.collection(collection).deleteOne(query, function (err2, result) {
+                if (err2) throw err2;
+                callback(result);
+                db.close();
+            });
         });
     }
 };

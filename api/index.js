@@ -35,6 +35,13 @@ app.get("/api/list/:id", function(request, response) {
     });
 });
 
+app.delete("/api/list/delete", function(request, response) {
+    console.log(request.body);
+    mongo.delete({ "id": request.body.id }, "lists", function(results) {
+        response.send(200);
+    });
+});
+
 var server = app.listen(3001, function () {
     var address = server.address();
 
