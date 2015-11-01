@@ -1,7 +1,7 @@
 var mongo = require("mongodb").MongoClient;
 
 var db = {
-    url: "mongodb://192.168.122.241:27017/shopping-list",
+    url: "mongodb://localhost:27017/shopping-list",
     insert: function (item, collection, callback) {
         mongo.connect(this.url, function(err, db) {
             db.collection(collection).insertOne(item, function (err2, result) {
