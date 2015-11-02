@@ -1,3 +1,4 @@
+var settings = require("../settings");
 import LayoutController from "../layout/layout.js";
 
 class Controller extends LayoutController {
@@ -25,10 +26,9 @@ class Controller extends LayoutController {
             return;
         }
 
-        var url = "http://localhost:3001/api/list/new";
         m.request({
             method: "POST",
-            url: url,
+            url: settings.api.address + "list/new",
             data: {
                 name: this.name(),
                 date: this.date(),

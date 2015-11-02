@@ -1,3 +1,4 @@
+var settings = require("../settings");
 import LayoutController from "../layout/layout.js";
 
 class Controller extends LayoutController {
@@ -10,8 +11,10 @@ class Controller extends LayoutController {
     }
 
     loadLists() {
-        var url = "http://localhost:3001/api/lists";
-        m.request({method: "GET", url: url}).then(function(result) {
+        m.request({
+            method: "GET",
+            url: settings.api.address + "lists"
+        }).then(function(result) {
             if (result) {
                 this.lists(result);
             }
@@ -26,7 +29,6 @@ class Controller extends LayoutController {
                     m("span.glyphicon.glyphicon-list-alt"),
                     "Shopping lists",
                 ]),
-                // m("hr"),
                 this.isLoading()
                     ? m("div.text-center", m("div.spinner-loader"))
                     : !this.lists()

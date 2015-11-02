@@ -1,3 +1,4 @@
+var settings = require("../settings");
 import LayoutController from "../layout/layout.js";
 
 class Controller extends LayoutController {
@@ -10,8 +11,10 @@ class Controller extends LayoutController {
     }
 
     loadList(id) {
-        var url = "http://localhost:3001/api/list/" + id;
-        m.request({method: "GET", url: url}).then(function(result) {
+        m.request({
+            method: "GET",
+            url: settings.api.address + "list/" + id
+        }).then(function(result) {
             if (result) {
                 this.list(result);
             }
@@ -20,10 +23,9 @@ class Controller extends LayoutController {
     }
 
     delete() {
-        var url = "http://localhost:3001/api/list/";
         m.request({
             method: "DELETE",
-            url: url,
+            url: settings.api.address + "list",
             data: {
                 id: this.list().id
             }
