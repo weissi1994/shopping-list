@@ -2,6 +2,7 @@ var express = require("express");
 var bodyParser = require('body-parser')
 var cors = require("cors");
 var guid = require("guid");
+var os = require("os");
 var mongo = require("./mongodb");
 
 var app = express();
@@ -41,7 +42,8 @@ app.delete("/api/list", function(request, response) {
 
 var server = app.listen(3001, function () {
     var address = server.address();
+    var ip = os.networkInterfaces()['eth0'][0]['address'];
 
-    console.log("express server started");
-    console.log("http://localhost:%s", address.port);
+    console.log("api server started at:");
+    console.log("http://%s:%s", ip, address.port);
 });
