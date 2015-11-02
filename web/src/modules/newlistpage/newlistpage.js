@@ -1,4 +1,4 @@
-var settings = require("../settings");
+var settings = require("../../../build/settings");
 import LayoutController from "../layout/layout.js";
 
 class Controller extends LayoutController {
