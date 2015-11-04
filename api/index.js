@@ -20,7 +20,7 @@ app.post("/api/list/new", function(request, response) {
     };
     mongo.connect(connectionString)
         .then(db => db.collection("lists")
-            .then(collection => collection.insertOne(list)
+            .then(collection => collection.insert(list)
                 .then(result => db.close()
                     .then(() => {
                         response.json(list);
