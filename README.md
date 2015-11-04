@@ -62,5 +62,5 @@ Build Web docker image
 
 ```
 docker build -t shopping-list-web:1.0 web
-docker run -d -p 80:3000 shopping-list-web:1.0
+docker run -d -p 80:3000 --name web --link api shopping-list-web:1.0
 ```
