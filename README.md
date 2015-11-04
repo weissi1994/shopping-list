@@ -42,25 +42,25 @@ Download source files
 git clone https://github.com/krilleha/shopping-list.git
 ```
 
-## Build and run docker files
+## Build and run docker images
 
-Build Api docker file
+Build Mongo docker image
+
+```
+docker build -t shopping-list-db:1.0 db
+docker run -d -p 27017:27017 --name db shopping-list-db:1.0
+```
+
+Build Api docker image
 
 ```
 docker build -t shopping-list-api:1.0 api
-docker run -d -p 3001:3001 shopping-list-api:1.0
+docker run -d -p 3001:3001 --name api --link db shopping-list-api:1.0
 ```
 
-Build Web docker file
+Build Web docker image
 
 ```
 docker build -t shopping-list-web:1.0 web
 docker run -d -p 80:3000 shopping-list-web:1.0
-```
-
-Build Mongo docker file
-
-```
-docker build -t shopping-list-db:1.0 db
-docker run -d -p 27017:27017 shopping-list-db:1.0
 ```

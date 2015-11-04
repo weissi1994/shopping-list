@@ -2,12 +2,14 @@ var express = require("express");
 var bodyParser = require('body-parser')
 var cors = require("cors");
 var guid = require("guid");
-var mongo = require("./mongodb");
+var mongo = require("mongodb-promise");
 
 var app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
+var connectionString = "mongodb://db:27017/shopping-list";
 
 app.post("/api/list/new", function(request, response) {
     var list = {
@@ -16,27 +18,71 @@ app.post("/api/list/new", function(request, response) {
         "date": request.body.date,
         "items": request.body.items
     };
-    mongo.insert(list, "lists", function(result) {
-        response.json(list);
-    });
+    mongo.connect(connectionString)
+        .then(db => db.collection("lists")
+            .then(collection => collection.insertOne(list)
+                .then(result => db.close()
+                    .then(() => {
+                        response.json(list);
+                    })
+                )
+            )
+        )
+        .fail(error => {
+            console.log(error);
+            response.sendStatus(500).send(error);
+        });
 });
 
 app.get("/api/lists", function(request, response) {
-    mongo.findAll("lists", function(results) {
-        response.json(results);
-    });
+    mongo.connect(connectionString)
+        .then(db => db.collection("lists")
+            .then(collection => collection.find().toArray()
+                .then(result => db.close()
+                    .then(() => {
+                        response.json(result);
+                    })
+                )
+            )
+        )
+        .fail(error => {
+            console.log(error);
+            response.sendStatus(500).send(error);
+        });
 });
 
 app.get("/api/list/:id", function(request, response) {
-    mongo.find({ "id": request.params.id }, "lists", function(results) {
-        response.json(results[0]);
-    });
+    mongo.connect(connectionString)
+        .then(db => db.collection("lists")
+            .then(collection => collection.findOne({ id: request.params.id})
+                .then(result => db.close()
+                    .then(() => {
+                        response.json(result);
+                    })
+                )
+            )
+        )
+        .fail(error => {
+            console.log(error);
+            response.sendStatus(500).send(error);
+        });
 });
 
 app.delete("/api/list", function(request, response) {
-    mongo.delete({ "id": request.body.id }, "lists", function(results) {
-        response.send({message: "deleted"});
-    });
+    mongo.connect(connectionString)
+        .then(db => db.collection("lists")
+            .then(collection => collection.deleteOne({ id: request.body.id})
+                .then(result => db.close()
+                    .then(() => {
+                        response.sendStatus(200).send({message: "deleted"});
+                    })
+                )
+            )
+        )
+        .fail(error => {
+            console.log(error);
+            response.sendStatus(500).send(error);
+        });
 });
 
 var server = app.listen(3001, function () {

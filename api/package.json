@@ -13,6 +13,6 @@
     "cors": "^2.7.1",
     "express": "^4.13.3",
     "guid": "0.0.12",
-    "mongodb": "^2.0.47"
+    "mongodb-promise": "0.0.4"
   }
 }
