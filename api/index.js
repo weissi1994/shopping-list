@@ -71,7 +71,7 @@ app.get("/api/list/:id", function(request, response) {
 app.delete("/api/list", function(request, response) {
     mongo.connect(connectionString)
         .then(db => db.collection("lists")
-            .then(collection => collection.deleteOne({ id: request.body.id})
+            .then(collection => collection.remove({ id: request.body.id})
                 .then(result => db.close()
                     .then(() => {
                         response.sendStatus(200).send({message: "deleted"});
