@@ -29,8 +29,7 @@ app.post("/api/list/new", function(request, response) {
             )
         )
         .fail(error => {
-            console.log(error);
-            response.sendStatus(500).send(error);
+            response.sendStatus(500);
         });
 });
 
@@ -46,8 +45,7 @@ app.get("/api/lists", function(request, response) {
             )
         )
         .fail(error => {
-            console.log(error);
-            response.sendStatus(500).send(error);
+            response.sendStatus(500);
         });
 });
 
@@ -63,8 +61,7 @@ app.get("/api/list/:id", function(request, response) {
             )
         )
         .fail(error => {
-            console.log(error);
-            response.sendStatus(500).send(error);
+            response.sendStatus(500);
         });
 });
 
@@ -74,14 +71,13 @@ app.delete("/api/list", function(request, response) {
             .then(collection => collection.remove({ id: request.body.id})
                 .then(result => db.close()
                     .then(() => {
-                        response.sendStatus(200).send({message: "deleted"});
+                        response.sendStatus(200);
                     })
                 )
             )
         )
         .fail(error => {
-            console.log(error);
-            response.sendStatus(500).send(error);
+            response.sendStatus(500);
         });
 });
 
