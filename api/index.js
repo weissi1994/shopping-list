@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 var connectionString = "mongodb://db:27017/shopping-list";
 
-app.post("/api/list/new", function(request, response) {
+app.post("/api/list/new", (request, response) => {
     var list = {
         "id": guid.raw(),
         "name": request.body.name,
@@ -33,7 +33,7 @@ app.post("/api/list/new", function(request, response) {
         });
 });
 
-app.get("/api/lists", function(request, response) {
+app.get("/api/lists", (request, response) => {
     mongo.connect(connectionString)
         .then(db => db.collection("lists")
             .then(collection => collection.find().toArray()
@@ -49,7 +49,7 @@ app.get("/api/lists", function(request, response) {
         });
 });
 
-app.get("/api/list/:id", function(request, response) {
+app.get("/api/list/:id", (request, response) => {
     mongo.connect(connectionString)
         .then(db => db.collection("lists")
             .then(collection => collection.findOne({ id: request.params.id})
@@ -65,7 +65,7 @@ app.get("/api/list/:id", function(request, response) {
         });
 });
 
-app.delete("/api/list", function(request, response) {
+app.delete("/api/list", (request, response) => {
     mongo.connect(connectionString)
         .then(db => db.collection("lists")
             .then(collection => collection.remove({ id: request.body.id})
@@ -81,7 +81,7 @@ app.delete("/api/list", function(request, response) {
         });
 });
 
-var server = app.listen(3001, function () {
+var server = app.listen(3001, () => {
     var address = server.address();
 
     console.log("api server started at:");

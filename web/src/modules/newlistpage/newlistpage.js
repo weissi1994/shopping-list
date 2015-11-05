@@ -34,11 +34,11 @@ class Controller extends LayoutController {
                 date: this.date(),
                 items: this.items()
             }
-        }).then(function(result) {
+        }).then(result => {
             m.route("/list/" + result.id);
-        }.bind(this), function(error) {
+        }, error => {
             this.error("Could not save the new shopping list, please try again later.");
-        }.bind(this));
+        });
     }
 
     getView() {

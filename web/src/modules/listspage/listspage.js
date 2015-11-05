@@ -14,12 +14,12 @@ class Controller extends LayoutController {
         m.request({
             method: "GET",
             url: settings.api.address + "lists"
-        }).then(function(result) {
+        }).then(result => {
             if (result) {
                 this.lists(result);
             }
             this.isLoading(false);
-        }.bind(this));
+        });
     }
 
     getView() {
@@ -43,12 +43,12 @@ class Controller extends LayoutController {
                                     m("td", "Date"),
                                 ])
                             ]),
-                            m("tbody", this.lists().map(function(list) {
-                                return m("tr", [
+                            m("tbody", this.lists().map(list =>
+                                m("tr", [
                                     m("td", m("a.btn-s.btn-link", { href: "#/list/" + list.id }, list.name)),
                                     m("td", list.date),
                                 ])
-                            })),
+                            )),
                         ]),
             ])
         );

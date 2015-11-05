@@ -4,7 +4,7 @@ var settings = require("./build/settings");
 var app = express();
 app.use(express.static(settings.output.path));
 
-var server = app.listen(settings.web.port, function() {
+var server = app.listen(settings.web.port, () => {
 	var address = server.address();
 
 	console.log("express server started at");

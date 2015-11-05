@@ -14,12 +14,12 @@ class Controller extends LayoutController {
         m.request({
             method: "GET",
             url: settings.api.address + "list/" + id
-        }).then(function(result) {
+        }).then(result => {
             if (result) {
                 this.list(result);
             }
             this.isLoading(false);
-        }.bind(this));
+        });
     }
 
     delete() {
@@ -29,9 +29,9 @@ class Controller extends LayoutController {
             data: {
                 id: this.list().id
             }
-        }).then(function(result) {
+        }).then(result => {
             m.route("/lists");
-        }.bind(this));
+        });
     }
 
     getView() {
