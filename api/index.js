@@ -81,6 +81,10 @@ app.delete("/api/list", (request, response) => {
         });
 });
 
+app.put("/api/list", (request, response) => {
+    response.send({message: "this is not implemented"});
+});
+
 var server = app.listen(3001, () => {
     var address = server.address();
 

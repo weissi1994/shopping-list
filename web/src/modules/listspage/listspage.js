@@ -11,15 +11,19 @@ class Controller extends LayoutController {
     }
 
     loadLists() {
+        this.isLoading(true);
         m.request({
+            background : true,
             method: "GET",
             url: settings.api.address + "lists"
         }).then(result => {
+            this.isLoading(false);
             if (result) {
                 this.lists(result);
             }
+        }, error => {
             this.isLoading(false);
-        });
+        }).then(m.redraw);
     }
 
     getView() {

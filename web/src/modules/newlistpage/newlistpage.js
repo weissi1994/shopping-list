@@ -10,6 +10,7 @@ class Controller extends LayoutController {
         this.name = m.prop("");
         this.date = m.prop(new Date().toLocaleDateString());
         this.items = m.prop("");
+        this.isSaveing = m.prop(false);
     }
 
     save() {
@@ -26,7 +27,9 @@ class Controller extends LayoutController {
             return;
         }
 
+        this.isSaveing(true);
         m.request({
+            background : true,
             method: "POST",
             url: settings.api.address + "list/new",
             data: {
@@ -35,10 +38,12 @@ class Controller extends LayoutController {
                 items: this.items()
             }
         }).then(result => {
+            this.isSaveing(false);
             m.route("/list/" + result.id);
         }, error => {
+            this.isSaveing(false);
             this.error("Could not save the new shopping list, please try again later.");
-        });
+        }).then(m.redraw);
     }
 
     getView() {
@@ -74,9 +79,14 @@ class Controller extends LayoutController {
                     ]),
                     m("div.form-group", [
                         m("label.col-sm-2.control-label"),
-                        m("div.col-sm-10",
-                            m("button.btn.btn-success", {onclick: this.save.bind(this)}, "Save")
-                        )
+                        this.isSaveing()
+                            ? m("d.col-sm-10", [
+                                m("div.spinner-loader"),
+                                m("span", "Saveing")
+                            ])
+                            : m("div.col-sm-10",
+                                m("button.btn.btn-success", {onclick: this.save.bind(this)}, "Save")
+                            )
                     ]),
                 ])
             ])

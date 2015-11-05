@@ -6,7 +6,7 @@ class Controller {
     getView(content) {
         var route = m.route();
         return m("div", [
-            m("h1.logo", [
+            m("h1.logo.hidden-xs", [
                 m("span.glyphicon.glyphicon-leaf")
             ]),
             m("ul.nav.nav-pills.nav-stacked", [
