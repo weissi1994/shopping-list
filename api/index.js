@@ -71,7 +71,7 @@ app.delete("/api/list", function(request, response) {
             .then(collection => collection.remove({ id: request.body.id})
                 .then(result => db.close()
                     .then(() => {
-                        response.sendStatus(200);
+                        response.json({message: "deleted"});
                     })
                 )
             )
