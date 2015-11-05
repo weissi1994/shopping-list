@@ -1,6 +1,6 @@
 module.exports = {
     api: {
-        address: "http://192.168.122.241:3001/api/",
+        address: "http://doxis.cloudapp.net:3001/api/",
     },
     output: {
         path: "app/",

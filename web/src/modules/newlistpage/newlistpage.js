@@ -42,7 +42,7 @@ class Controller extends LayoutController {
             m.route("/list/" + result.id);
         }, error => {
             this.isSaveing(false);
-            this.error("Could not save the new shopping list, please try again later.");
+            this.error("Could not save the new list, please try again later.");
         }).then(m.redraw);
     }
 
@@ -51,7 +51,7 @@ class Controller extends LayoutController {
             m("div", [
                 m("h1", [
                     m("span.glyphicon.glyphicon-pencil"),
-                    "Create a new shopping list",
+                    "Create a new list",
                 ]),
                 m("hr"),
                 this.error() ? m("div.alert.alert-info", { role: "alert" }, [
@@ -62,7 +62,7 @@ class Controller extends LayoutController {
                     m("div.form-group", [
                         m("label.col-sm-2.control-label", "Name"),
                         m("div.col-sm-10",
-                            m("input.form-control", { placeholder: "Enter the name for the shopping list", onchange: m.withAttr("value", this.name), value: this.name() })
+                            m("input.form-control", { placeholder: "Enter the name for the list", onchange: m.withAttr("value", this.name), value: this.name() })
                         )
                     ]),
                     m("div.form-group", [

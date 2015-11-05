@@ -31,7 +31,7 @@ class Controller extends LayoutController {
             m("div", [
                 m("h1", [
                     m("span.glyphicon.glyphicon-list-alt"),
-                    "Shopping lists",
+                    "Lists",
                 ]),
                 this.isLoading()
                     ? m("div.text-center", m("div.spinner-loader"))
