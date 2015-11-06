@@ -79,9 +79,9 @@ app.put("/api/list", (request, response) => {
     mongo.connect(connectionString).then(db =>
         db.collection("lists").then(collection =>
             collection.update(id, changes).then(result =>
-                db.close().then(() =>
+                db.close().then(() => {
                     response.json(result);
-                )
+                })
             )
         )
     ).fail(error => {
