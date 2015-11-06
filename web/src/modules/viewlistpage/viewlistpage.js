@@ -76,7 +76,6 @@ class Controller extends LayoutController {
             }
         }).then(result => {
             this.isLoading(false);
-            // m.route("/lists");
         }, error => {
             this.isLoading(false);
         }).then(m.redraw);

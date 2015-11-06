@@ -18,71 +18,75 @@ app.post("/api/list/new", (request, response) => {
         "date": request.body.date,
         "items": request.body.items
     };
-    mongo.connect(connectionString)
-        .then(db => db.collection("lists")
-            .then(collection => collection.insert(list)
-                .then(result => db.close()
-                    .then(() => {
-                        response.json(list);
-                    })
-                )
+    mongo.connect(connectionString).then(db =>
+        db.collection("lists").then(collection =>
+            collection.insert(list).then(result =>
+                db.close().then(() => {
+                    response.json(list);
+                })
             )
         )
-        .fail(error => {
-            response.sendStatus(500);
-        });
+    ).fail(error => {
+        response.sendStatus(500);
+    });
 });
 
 app.get("/api/lists", (request, response) => {
-    mongo.connect(connectionString)
-        .then(db => db.collection("lists")
-            .then(collection => collection.find().toArray()
-                .then(result => db.close()
-                    .then(() => {
-                        response.json(result);
-                    })
-                )
+    mongo.connect(connectionString).then(db =>
+        db.collection("lists").then(collection =>
+            collection.find().toArray().then(result =>
+                db.close().then(() => {
+                    response.json(result);
+                })
             )
         )
-        .fail(error => {
-            response.sendStatus(500);
-        });
+    ).fail(error => {
+        response.sendStatus(500);
+    });
 });
 
 app.get("/api/list/:id", (request, response) => {
-    mongo.connect(connectionString)
-        .then(db => db.collection("lists")
-            .then(collection => collection.findOne({ id: request.params.id})
-                .then(result => db.close()
-                    .then(() => {
-                        response.json(result);
-                    })
-                )
+    mongo.connect(connectionString).then(db =>
+        db.collection("lists").then(collection =>
+            collection.findOne({ id: request.params.id}).then(result =>
+                db.close().then(() => {
+                    response.json(result);
+                })
             )
         )
-        .fail(error => {
-            response.sendStatus(500);
-        });
+    ).fail(error => {
+        response.sendStatus(500);
+    });
 });
 
 app.delete("/api/list", (request, response) => {
-    mongo.connect(connectionString)
-        .then(db => db.collection("lists")
-            .then(collection => collection.remove({ id: request.body.id})
-                .then(result => db.close()
-                    .then(() => {
-                        response.json({message: "deleted"});
-                    })
-                )
+    mongo.connect(connectionString).then(db =>
+        db.collection("lists").then(collection =>
+            collection.remove({ id: request.body.id}).then(result =>
+                db.close().then(() => {
+                    response.json({message: "deleted"});
+                })
             )
         )
-        .fail(error => {
-            response.sendStatus(500);
-        });
+    ).fail(error => {
+        response.sendStatus(500);
+    });
 });
 
 app.put("/api/list", (request, response) => {
-    response.send({message: "this is not implemented"});
+    var id = { id: request.body.id };
+    var changes = { items: request.body.items };
+    mongo.connect(connectionString).then(db =>
+        db.collection("lists").then(collection =>
+            collection.update(id, changes).then(result =>
+                db.close().then(() =>
+                    response.json(result);
+                )
+            )
+        )
+    ).fail(error => {
+        response.sendStatus(500);
+    });
 });
 
 var server = app.listen(3001, () => {
