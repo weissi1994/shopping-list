@@ -75,7 +75,7 @@ app.delete("/api/list", (request, response) => {
 
 app.put("/api/list", (request, response) => {
     var id = { id: request.body.id };
-    var changes = { items: request.body.items };
+    var changes = { $set: { items: request.body.items } };
     mongo.connect(connectionString).then(db =>
         db.collection("lists").then(collection =>
             collection.update(id, changes).then(result =>
