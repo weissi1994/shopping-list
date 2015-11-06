@@ -19,7 +19,7 @@ class Controller extends LayoutController {
         }).then(result => {
             this.isLoading(false);
             if (result) {
-                this.lists(result);
+                this.lists(result.filter(list => list.id && list.name));
             }
         }, error => {
             this.isLoading(false);
