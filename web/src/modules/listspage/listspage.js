@@ -6,6 +6,7 @@ class Controller extends LayoutController {
         super();
         this.isLoading = m.prop(false);
         this.lists = m.prop([]);
+        this.filter = m.prop("");
 
         this.loadLists();
     }
@@ -33,6 +34,7 @@ class Controller extends LayoutController {
                     m("span.glyphicon.glyphicon-list-alt"),
                     "Lists",
                 ]),
+                m("input[type=text].form-control", { oninput: m.withAttr("value", this.filter), value: this.filter(), placeholder: "Search" }),
                 this.isLoading()
                     ? m("div.text-center", m("div.spinner-loader"))
                     : !this.lists()
@@ -47,7 +49,10 @@ class Controller extends LayoutController {
                                     m("td", "Date"),
                                 ])
                             ]),
-                            m("tbody", this.lists().map(list =>
+                            m("tbody", this.lists().filter(item => {
+                                    var filter = this.filter().toLowerCase();
+                                    return filter == "" || item.name.toLowerCase().indexOf(filter) > -1;
+                                }).sort((a, b) => new Date(b.date) - new Date(a.date)).map(list =>
                                 m("tr", [
                                     m("td", m("a.btn-s.btn-link", { href: "#/list/" + list.id }, list.name)),
                                     m("td", list.date),

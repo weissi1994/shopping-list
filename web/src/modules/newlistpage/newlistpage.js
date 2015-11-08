@@ -8,7 +8,7 @@ class Controller extends LayoutController {
         this.error = m.prop("");
 
         this.name = m.prop("");
-        this.date = m.prop(new Date().toLocaleDateString());
+        this.date = m.prop(new Date().toLocaleString());
         this.items = m.prop("");
         this.isSaveing = m.prop(false);
     }

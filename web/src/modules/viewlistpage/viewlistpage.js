@@ -96,18 +96,15 @@ class Controller extends LayoutController {
                             this.list().name,
                         ]),
                         m("hr"),
+                        m("div.text-muted", `Last edited ${this.list().date}`),
                         this.isEditing()
-                            ? m("textarea.form-control.mtb", { rows: 5, onchange: m.withAttr("value", this.newItems), value: this.newItems() })
+                            ? m("textarea.form-control.mtb", { rows: 10, onchange: m.withAttr("value", this.newItems), value: this.newItems() })
                             : m("div.listitems", this.items().sort(item => item.checked).map(item =>
-                                m("div.listitem.clearfix" + (item.checked ? ".success" : ""), { onclick: function () { item.checked = true } } ,[
+                                m("div.listitem.clearfix" + (item.checked ? ".success" : ""), { onclick: function () { item.checked = !item.checked } } ,[
                                     m("span" + (item.checked ? ".glyphicon.glyphicon-ok" : ".glyphicon.glyphicon-unchecked")),
                                     item.text
                                 ])
                             )),
-                        m("div.ftr", [
-                            m("span.text-muted.mr", "Created"),
-                            this.list().date,
-                        ]),
                         m("div", [
                             this.isEditing()
                                 ? m("a.btn.btn-link", { onclick: this.save.bind(this) }, [
