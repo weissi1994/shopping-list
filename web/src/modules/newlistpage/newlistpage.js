@@ -8,7 +8,6 @@ class Controller extends LayoutController {
         this.error = m.prop("");
 
         this.name = m.prop("");
-        this.date = m.prop(new Date().toLocaleString());
         this.items = m.prop("");
         this.isSaveing = m.prop(false);
     }
@@ -16,10 +15,6 @@ class Controller extends LayoutController {
     save() {
         if (this.name() == "") {
             this.error("Name must be specified.");
-            return;
-        }
-        if (this.date() == "") {
-            this.error("Date must be specified.");
             return;
         }
         if (this.items() == "") {
@@ -34,7 +29,6 @@ class Controller extends LayoutController {
             url: settings.api.address + "list/new",
             data: {
                 name: this.name(),
-                date: this.date(),
                 items: this.items()
             }
         }).then(result => {
@@ -63,12 +57,6 @@ class Controller extends LayoutController {
                         m("label.col-sm-2.control-label", "Name"),
                         m("div.col-sm-10",
                             m("input.form-control", { placeholder: "Enter the name for the list", onchange: m.withAttr("value", this.name), value: this.name() })
-                        )
-                    ]),
-                    m("div.form-group", [
-                        m("label.col-sm-2.control-label", "Date"),
-                        m("div.col-sm-10",
-                            m("input.form-control", { onchange: m.withAttr("value", this.date), value: this.date() })
                         )
                     ]),
                     m("div.form-group", [

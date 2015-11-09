@@ -1,7 +1,8 @@
 var express = require("express");
 var bodyParser = require('body-parser')
 var cors = require("cors");
-var guid = require("guid");
+var uuid = require("uuid");
+var moment = require("moment");
 var mongo = require("mongodb-promise").MongoClient;
 
 var app = express();
@@ -10,12 +11,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 var connectionString = "mongodb://db:27017/shopping-list";
+var dateFormat = "YYYY-MM-DD hh:mm";
 
 app.post("/api/list/new", (request, response) => {
     var list = {
-        "id": guid.raw(),
+        "id": uuid.v4(),
         "name": request.body.name,
-        "date": request.body.date,
+        "date": moment().format(dateFormat),
         "items": request.body.items
     };
     mongo.connect(connectionString).then(db =>
@@ -75,7 +77,7 @@ app.delete("/api/list", (request, response) => {
 
 app.put("/api/list", (request, response) => {
     var id = { id: request.body.id };
-    var changes = { $set: { date: new Date().toLocaleString(), items: request.body.items } };
+    var changes = { $set: { date: moment().format(dateFormat), items: request.body.items } };
     mongo.connect(connectionString).then(db =>
         db.collection("lists").then(collection =>
             collection.update(id, changes).then(result =>

@@ -12,7 +12,8 @@
     "body-parser": "^1.14.1",
     "cors": "^2.7.1",
     "express": "^4.13.3",
-    "guid": "0.0.12",
-    "mongodb-promise": "0.0.4"
+    "moment": "^2.10.6",
+    "mongodb-promise": "0.0.4",
+    "uuid": "^2.0.1"
   }
 }
