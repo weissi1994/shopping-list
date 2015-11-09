@@ -52,7 +52,7 @@ class Controller extends LayoutController {
                             m("tbody", this.lists().filter(item => {
                                     var filter = this.filter().toLowerCase();
                                     return filter == "" || item.name.toLowerCase().indexOf(filter) > -1;
-                                }).sort((a, b) => new Date(b.date) - new Date(a.date)).map(list =>
+                                }).sort((a, b) => b.date.localeCompare(a.date)).map(list =>
                                 m("tr", [
                                     m("td", m("a.btn-s.btn-link", { href: "#/list/" + list.id }, list.name)),
                                     m("td", list.date),
