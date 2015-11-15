@@ -1,6 +1,6 @@
 # shopping-list
 
-This project contains 4 diffrent parts that will be hosted in docker containers.  
+This project contains 3 diffrent parts that will be hosted in docker containers.  
 
 __Web__  
 A SPA site to view and handle shopping lists.
@@ -22,11 +22,6 @@ A web api with data storage.
 * Express middleware: Body-Parser, Cors
 * MongoDB node driver
 * Docker
-
-__Client__  
-A cross platform client that will host the website localy on the machine.
-
-* Electron <3
 
 __Data store__  
 A simple document database to host the data.
